@@ -3,7 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import allReducers from "./reducers";
 import App from "./app";
 import Fairy from "./fairy";
@@ -16,10 +16,10 @@ ReactDOM.render(
     <Provider store={store}>
         <Router>
             <div>
-                <Route
-                    path="/:filter?"
-                    component={sessionStorage.getItem("key") ? App : Login}
-                />
+                <Switch>
+                    <Route path="/login" component={Login} />
+                    <Route component={App} />
+                </Switch>
             </div>
         </Router>
     </Provider>,

@@ -5,7 +5,7 @@ module.exports = {
     devServer: {
         inline: true,
         contentBase: './src',
-        port: process.env.PORT || 3030,
+        port: 3000,
         historyApiFallback: true,
         headers: { "Access-Control-Allow-Origin": "*" },
         stats: { colors: true }

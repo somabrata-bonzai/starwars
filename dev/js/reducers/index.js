@@ -1,8 +1,8 @@
-import {combineReducers} from 'redux';
-import ActiveUserReducer from '../login/reducerLogin';
+import { combineReducers } from "redux";
+import ActiveUserReducer from "./reducerLogin";
 
 const allReducers = combineReducers({
-    loggedInUser: ActiveUserReducer
+    loggedInUser: ActiveUserReducer,
 });
 
 export default allReducers;

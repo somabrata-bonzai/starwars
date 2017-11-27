@@ -1,28 +1,34 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import SearchPlanet from "./containers/searchPlanet";
-import { Redirect } from "react-router-dom";
+import {Redirect} from "react-router-dom";
+import { logoutUser } from "./actions";
 
-const app = ({ match: { params }, user }) => {
+const app = (params) => {
     console.log(params);
-    switch (params.filter) {
-        case "search":
-            return (
+    let jsx = null;
+    switch (params.location.pathname) {
+        case "/search":
+            jsx = (
                 <div>
                     <SearchPlanet />
                     <button
                         onClick={() => {
                             sessionStorage.clear();
-                            window.location = "/login";
+                            params.logoutUser();
+                            params.history.push("login");
                         }}
                     >
                         Logout
                     </button>
                 </div>
             );
+            break;
         default:
-            return <Redirect to="/search" />;
+            jsx = <Redirect to="/search" />;
     }
+    return sessionStorage.getItem("key") ? jsx : <Redirect to="/login" />;
 };
 
 function mapStateToProps(state) {
@@ -32,7 +38,7 @@ function mapStateToProps(state) {
 }
 
 function matchDispatchToProps(dispatch) {
-    return {};
+    return bindActionCreators({ logoutUser }, dispatch);
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(app);
