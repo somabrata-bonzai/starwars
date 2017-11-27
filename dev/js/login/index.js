@@ -1,13 +1,8 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-
-const userCredentials = user => {
-    return {
-        type: "login_user",
-        payload: user,
-    };
-};
+import { Redirect } from "react-router-dom";
+import { userCredentials } from "../actions";
 
 class Login extends Component {
     constructor(props) {
@@ -28,6 +23,9 @@ class Login extends Component {
     }
 
     render() {
+        if (sessionStorage.getItem("key")) {
+            return <Redirect to="/search" />;
+        }
         return (
             <div>
                 <input type="text" onChange={e => (this.username = e.target.value)} />
@@ -42,7 +40,7 @@ class Login extends Component {
 
 function mapStateToProps(state) {
     return {
-        user: state.loggedInUser
+        user: state.loggedInUser,
     };
 }
 
